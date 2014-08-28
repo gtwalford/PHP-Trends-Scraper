@@ -1,4 +1,4 @@
-A PHP Google Trends Scraper
+PHP Google Trends Scraper
 --------------------------
 
 Small project attempting to scrape the google trends page and retrieve csv for search. Once the csv has been retireved the data is parsed and returned.
@@ -12,4 +12,4 @@ TODO
 ----
 - Build parsing options
 - Setup for storage
-
+- Upgrade authorization to use OAuth2
