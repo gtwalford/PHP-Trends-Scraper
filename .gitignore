@@ -1,0 +1,14 @@
+# Ignore generated files
+.DS_Store
+source/js/min
+source/css/min
+source/css/generated
+
+# Vim temp files
+*~
+*.swp
+*.swo
+
+#ignore smarty (php) template cache
+*templates_c*
+
