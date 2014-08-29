@@ -1,5 +1,6 @@
 # Ignore changes to Creds file to prevent sharing account details
 Creds.php
+curl.csv
 
 # Ignore generated files
 .DS_Store
