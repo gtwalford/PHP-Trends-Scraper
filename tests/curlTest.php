@@ -1,28 +1,28 @@
+<?php
 /*
  * Curl test will request csv from Google Trends
  * Note - If run frequently your user will get blocked on the ip address and the return will say you"ve reached your quota
  *
- * Add Gmail username and password into data array to run
  * Update search string with desired request
  *
  */
-<?php
+  require_once( getcwd().'/Creds.php');
+
+  $creds = new Creds();
   $csvFile = "curl.csv";
   $handle = fopen($csvFile, "w") or die("Cannot open file: ".$csvFile);
 
   // Data Array for Authorization
   $data  = array(
     "accountType" => "GOOGLE",
-    // Add Gmail Account
-    "Email"       => "USERNAME - @gmail.com",
-    // Add Password
-    "Passwd"      => "PWD",
+    "Email"       => $creds->username,
+    "Passwd"      => $creds->password,
     "service"     => "trendspro",
     "source"      => "company-application-1.0"
   );
 
   // String for search to be requested
-  $searchRequest = "skiing"
+  $searchRequest = "skiing";
 
   // Initial Curl to get Google Authorization
   // Returns SID and Auth

@@ -1,5 +1,10 @@
 <?php
-  $csvFile = "curl.csv";
+  /*
+   * Test to parse csv
+   */
+  echo "\n\n====================\n";
+
+  $csvFile = __DIR__."/curl.csv";
   $handle = fopen($csvFile, "r") or die("Cannot open file: ".$csvFile);
   $csv = fread($handle, filesize($csvFile) );
 
@@ -16,6 +21,7 @@
   }
   $csv = array_values($csv);
   
-  echo json_encode($csv);
+  echo json_encode($csv)."\n";
+  echo "====================\n";
 
 ?>
