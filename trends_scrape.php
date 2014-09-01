@@ -1,28 +1,23 @@
 <?php
 
-require_once(__DIR__.'/Auth.php');
-require_once(__DIR__.'/Request.php');
-require_once(__DIR__.'/Parse.php');
+  require_once(__DIR__.'/Request.php');
+  require_once(__DIR__.'/Parse.php');
 
-$auth = new Auth();
-$request = new Request();
-$parse = new Parse();
-$searchTerm = 'skiing';
+  $request = new Request();
+  $parse = new Parse();
+  $searchTerm = 'skiing';
 
-// Get Google Authorization by logging in
-$headers = $request->getAuth();
-echo "\n<^^^^^^^^^^^^^^^^^^^^^^^^^^^\n".json_encode($headers)."\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n";
-assert( isset($headers) );
+  // Get Google Authorization by logging in
+  $headers = $request->getAuth();
 
-// Request CSV from Google Trends
-$csv = $request->getTrends($searchTerm, $headers);
-echo "\n<^^^^^^^^^^^^^^^^^^^^^^^^^^^\n".json_encode($csv)."\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n";
-assert( isset($csv) && is_string($csv), 0);
+  // Request CSV from Google Trends
+  $csv = $request->getTrends($searchTerm);
+  assert( isset($csv) && is_string($csv), 0);
 
-// Parse CSV
-//$parse->extractData();
+  // Parse CSV
+  //$parse->extractData();
 
 
-// Store Return
+  // Store Return
 
 ?>

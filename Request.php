@@ -5,6 +5,8 @@
 require_once(__DIR__."/Creds.php");
 
 Class Request {
+  private $headers;
+  private $cookies;
 
   // Initial Curl to get Google Authorization
   // Returns SID and Auth
@@ -38,31 +40,26 @@ Class Request {
     // Extract SID
     preg_match("/SID=(.+)/", $response, $sid);
 
-    // Erase POST variables used on the previous xhttp call
-    $data = array();
-
     //We now have an authorization-token
-    $data["headers"] = array(
-      "Authorization" => "GoogleLogin auth=" . $auth[1],
-      "GData-Version" =>  "3.0"
+    $this->headers = array(
+      "Authorization: GoogleLogin auth=" . $auth[1],
+      "GData-Version: 3.0"
     );
 
     // Set the SID in cookies
-    $data["cookies"] = array(
-      "SID" => $sid[1]
+    $this->cookies = array(
+      "cookies" => array( "SID" => $sid[1] )
     );
 
-    return $data;
   }
 
-  public function getTrends( $searchTerm, $params ){
+  public function getTrends( $searchTerm){
     $url = "https://www.google.com/trends/trendsReport?hl=en-US&q=".$searchTerm."&content=1&export=1";
-    assert( isset($params["headers"]) && isset($params["cookies"]) );
 
     $ch = curl_init();
     curl_setopt( $ch, CURLOPT_URL, $url );
-    curl_setopt($ch, CURLOPT_HTTPHEADER, $params["headers"]);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $params["cookies"]);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $this->headers);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $this->cookies);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
     curl_setopt($ch, CURLOPT_HEADER, false);
