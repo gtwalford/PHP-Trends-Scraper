@@ -22,7 +22,6 @@ Class Request {
     );
     $url = "https://www.google.com/accounts/ClientLogin";
 
-    echo json_encode( $data );
     assert( isset($data["Email"]) && isset($data["Passwd"]) );
 
     $ch = curl_init();
@@ -47,14 +46,16 @@ Class Request {
     );
 
     // Set the SID in cookies
-    $this->cookies = array(
-      "cookies" => array( "SID" => $sid[1] )
+    $this->cookies["cookies"] = array(
+      "SID" => $sid[1]
     );
 
   }
 
   public function getTrends( $searchTerm){
     $url = "https://www.google.com/trends/trendsReport?hl=en-US&q=".$searchTerm."&content=1&export=1";
+    assert(isset($this->headers));
+    assert(isset($this->cookies));
 
     $ch = curl_init();
     curl_setopt( $ch, CURLOPT_URL, $url );
@@ -65,10 +66,10 @@ Class Request {
     curl_setopt($ch, CURLOPT_HEADER, false);
     curl_setopt($ch, CURLOPT_POST, false);
 
-    $csv = curl_exec($ch);
+    $data = curl_exec($ch);
     curl_close($ch);
 
-    return $csv;
+    return $data;
 
   } 
 

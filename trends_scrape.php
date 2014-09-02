@@ -5,17 +5,18 @@
 
   $request = new Request();
   $parse = new Parse();
-  $searchTerm = 'skiing';
+  $searchTerm = "skiing";
 
   // Get Google Authorization by logging in
   $headers = $request->getAuth();
 
   // Request CSV from Google Trends
-  $csv = $request->getTrends($searchTerm);
-  assert( isset($csv) && is_string($csv), 0);
+  $trends = $request->getTrends( $searchTerm );
+  assert( isset( $trends ) );
 
   // Parse CSV
-  //$parse->extractData();
+  $cleanTrends = $parse->cleanData( $trends );
+  echo "\n=============\n".json_encode( $cleanTrends )."\n=============\n";
 
 
   // Store Return
