@@ -53,12 +53,13 @@ Class Request {
   }
 
   public function getTrends( $searchTerm){
-    $url = "https://www.google.com/trends/trendsReport?hl=en-US&q=".$searchTerm."&content=1&export=1";
+    $fullDataUrl = "https://www.google.com/trends/trendsReport?hl=en-US&q=".$searchTerm."&content=1&export=1";
+    $monthDataUrl = "https://www.google.com/trends/trendsReport?hl=en-US&q=".$searchTerm."&date=today%201-m&cmpt=date&content=1&export=1";
     assert(isset($this->headers));
     assert(isset($this->cookies));
 
     $ch = curl_init();
-    curl_setopt( $ch, CURLOPT_URL, $url );
+    curl_setopt( $ch, CURLOPT_URL, $monthDataUrl );
     curl_setopt($ch, CURLOPT_HTTPHEADER, $this->headers);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $this->cookies);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -68,6 +69,8 @@ Class Request {
 
     $data = curl_exec($ch);
     curl_close($ch);
+
+    echo json_encode($data);
 
     return $data;
 

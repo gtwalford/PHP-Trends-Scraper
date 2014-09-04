@@ -17,6 +17,7 @@
   // Parse CSV
   $cleanTrends = $parse->cleanData( $trends );
   echo "\n=============\n".json_encode( $cleanTrends )."\n=============\n";
+  echo $parse->addData( $cleanTrends );
 
 
   // Store Return

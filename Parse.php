@@ -11,13 +11,23 @@ Class Parse {
 
     for( $i = 0, $iLen = count($data); $i < $iLen; $i++ ){
       $data[$i] = explode(",", $data[$i] );
-      if( $data[$i] == "" || !isset( $data[$i][1] ) ){
+      if( $data[$i] == "" || !isset( $data[$i][1] ) || $data[$i][1] == " "  ){
         unset( $data[$i] );
       }
     }
     $data = array_values( $data );
 
     return $data;
+  }
+
+  public static function addData( $data ){
+    $sum = 0;
+
+    for( $i = 0, $iLen = count($data); $i < $iLen; $i++ ){
+      $sum += $data[$i][1];
+    }
+
+    return $sum;
   }
 }
 
